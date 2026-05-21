@@ -896,11 +896,16 @@
   }
 
   .marquee-item {
-    font-family: 'DM Mono', monospace; font-size: 11px;
-    color: var(--text-dim); letter-spacing: 0.15em;
-    text-transform: uppercase; white-space: nowrap;
-    display: flex; align-items: center; gap: 60px;
-  }
+  font-family: 'DM Mono', monospace; 
+  font-size: 11px;
+  color: #ffffff; 
+  letter-spacing: 0.15em;
+  text-transform: uppercase; 
+  white-space: nowrap;
+  display: flex; 
+  align-items: center; 
+  gap: 60px;
+}
 
   .marquee-item::after {
     content: '✦'; color: var(--accent); font-size: 8px;
