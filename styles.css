@@ -196,7 +196,7 @@
 
   .hero-name .line2 {
     display: block; color: transparent;
-    -webkit-text-stroke: 1px rgba(240,237,232,0.25);
+    -webkit-text-stroke: 1px #e8ff47;
   }
 
   .hero-name .accent-word { color: var(--accent); }
