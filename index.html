@@ -10,8 +10,7 @@
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<canvas id="cursor-canvas"></canvas>
 
 <!-- ============================================================
      PROJECT DETAIL MODAL (MEDIA ONLY)
@@ -522,23 +521,78 @@
 
 <script>
 /* ─── CUSTOM CURSOR (GPU ACCELERATED) ───────────────────────── */
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursor-ring');
-let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+const canvas = document.getElementById('cursor-canvas');
+const ctx    = canvas.getContext('2d');
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-// left/top ki jagah hum GPU transform use karenge
+let mx = 0, my = 0;
+const drops = [];
+
 document.addEventListener('mousemove', e => {
-  mouseX = e.clientX; 
-  mouseY = e.clientY;
-  // Use translate3d for hardware acceleration
-  cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+  mx = e.clientX; my = e.clientY;
+  // Spawn ink drop on move
+  if (Math.random() < 0.35) {
+    drops.push({
+      x: mx + (Math.random()-0.5)*6,
+      y: my + (Math.random()-0.5)*6,
+      r: Math.random() * 3 + 1.5,
+      alpha: 0.7 + Math.random()*0.3,
+      vx: (Math.random()-0.5)*1.2,
+      vy: Math.random()*1.5 + 0.3,
+      life: 1,
+    });
+  }
 });
 
-(function animateRing() {
-  ringX += (mouseX - ringX) * 0.15; // Thora fast kiya 0.12 se 0.15
-  ringY += (mouseY - ringY) * 0.15;
-  cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-  requestAnimationFrame(animateRing);
+// Click burst
+document.addEventListener('click', e => {
+  for (let i = 0; i < 18; i++) {
+    const angle = (Math.PI * 2 / 18) * i;
+    const spd   = Math.random() * 4 + 2;
+    drops.push({
+      x: e.clientX, y: e.clientY,
+      r: Math.random() * 4 + 2,
+      alpha: 1,
+      vx: Math.cos(angle) * spd,
+      vy: Math.sin(angle) * spd,
+      life: 1,
+    });
+  }
+});
+
+(function loop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw & update drops
+  for (let i = drops.length - 1; i >= 0; i--) {
+    const d = drops[i];
+    d.x    += d.vx;
+    d.y    += d.vy;
+    d.vy   += 0.06; // gravity
+    d.life -= 0.022;
+    if (d.life <= 0) { drops.splice(i, 1); continue; }
+
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r * d.life, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(232,255,71,${d.alpha * d.life})`;
+    ctx.shadowColor = '#e8ff47';
+    ctx.shadowBlur  = 6;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  // Main cursor dot
+  ctx.beginPath();
+  ctx.arc(mx, my, 4, 0, Math.PI * 2);
+  ctx.fillStyle = '#e8ff47';
+  ctx.shadowColor = '#e8ff47';
+  ctx.shadowBlur  = 14;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  requestAnimationFrame(loop);
 })();
 
 /* ─── NAV SCROLL ────────────────────────────────────────────── */
