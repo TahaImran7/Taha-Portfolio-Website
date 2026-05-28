@@ -181,7 +181,7 @@ body { cursor: none; }
   .hero-scroll-hint {
     position: absolute; bottom: 40px; left: 60px;
     font-family: 'DM Mono', monospace; font-size: 10px;
-    color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase;
+    color: #fff; letter-spacing: 0.12em; text-transform: uppercase;
     display: flex; align-items: center; gap: 12px;
     opacity: 0; animation: fadeUp 0.8s 1.1s forwards;
   }
@@ -200,7 +200,7 @@ body { cursor: none; }
   .stat-num span { color: var(--accent); }
   .stat-label {
     font-family: 'DM Mono', monospace; font-size: 10px;
-    color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;
+    color: #fff; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;
   }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -286,7 +286,7 @@ body { cursor: none; }
   /* ── PROJECTS ───────────────────────────────────────────────── */
   #projects { padding: 120px 0; background: var(--bg2); }
   .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
-  .projects-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
+  .projects-count { font-family: 'DM Mono', monospace; font-size: 11px; color: #e8ff47; letter-spacing: 0.1em; }
   .project-list { display: flex; flex-direction: column; gap: 2px; }
 
   .project-item {
@@ -304,7 +304,7 @@ body { cursor: none; }
   }
   .project-num {
     font-family: 'DM Mono', monospace; font-size: 11px;
-    color: var(--text-dim); letter-spacing: 0.12em; margin-bottom: 20px;
+    color: #e8ff47; letter-spacing: 0.12em; margin-bottom: 20px;
   }
   .project-title {
     font-size: clamp(20px, 2.2vw, 28px); font-weight: 800;
