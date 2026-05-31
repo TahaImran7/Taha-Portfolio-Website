@@ -676,3 +676,146 @@ body { cursor: none; }
     .modal-visual { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border); }
     .modal-content { padding: 28px 24px; }
   }
+
+
+
+  
+/* ── CERTIFICATIONS SECTION STYLES ─────────────────────────── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.cert-card {
+  padding: 32px 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Thora gap kam kiya taake button bottom par fit ho sky */
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s, border-color 0.4s;
+}
+
+/* Naye Certification Button/Link ki Styling */
+.btn-view-cert {
+  margin-top: auto; /* Magic line: Is se saare buttons automatically box ke bilkul bottom pr align ho jaty hain */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted); /* Shuru mein thora subtle soft gray rkhay ga */
+  transition: color 0.3s, transform 0.3s;
+  width: max-content;
+}
+
+/* Jab pure card pr mouse aaye, ya button pr directly jaye, to yeh bright accent (neon yellow) ho jaye ga */
+.cert-card:hover .btn-view-cert,
+.btn-view-cert:hover {
+  color: var(--accent);
+}
+
+/* Hover karne par arrow right side pr smoothly slice kray ga */
+.btn-view-cert svg {
+  transition: transform 0.3s ease;
+}
+.btn-view-cert:hover svg {
+  transform: translateX(4px);
+}
+
+/* Bottom line animation jo baki cards mein bhi hai */
+.cert-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cert-card:hover::before {
+  transform: scaleX(1);
+}
+
+.cert-card:hover {
+  background: var(--surface2);
+  border-color: rgba(232, 255, 71, 0.15);
+}
+
+.cert-badge-icon {
+  color: var(--accent);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232, 255, 71, 0.05);
+  border: 1px solid rgba(232, 255, 71, 0.1);
+  border-radius: 4px;
+}
+
+.cert-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cert-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.cert-card-issuer {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.cert-card-issuer span {
+  color: var(--accent);
+  margin: 0 4px;
+}
+
+.cert-card-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #ffffff; /* Clear White text jese baaki items ka kiya tha */
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 992px) {
+  .certs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .certs-grid { grid-template-columns: 1fr; gap: 16px; }
+  .cert-card { padding: 24px; }
+}
+
+.cert-company-logo {
+  height: 32px; /* Logo ki height fix kar di taake saare cards barabar lagen */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.cert-company-logo img {
+  max-width: 100px; /* Logo zyada lamba na ho */
+  max-height: 100%;
+  object-fit: contain; /* Aspect ratio kharab na ho */
+  object-position: left; /* Text ke bilkul sath left align rahe */
+}
